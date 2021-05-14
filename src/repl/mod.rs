@@ -22,7 +22,11 @@ impl Repl {
     }
 
     pub fn run(&self) {
-        let mut rl = rustyline::Editor::<()>::new();
+        let mut rl = rustyline::Editor::<()>::with_config(
+            rustyline::Config::builder()
+                .auto_add_history(true)
+                .build()
+        );
 
         for line in rl.iter(">> ") {
             match line {
