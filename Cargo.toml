@@ -11,4 +11,7 @@ name = "tryst"
 path = "src/cli.rs"
 
 [dependencies]
+num = "0.4"
+regex = "1"
 rustyline = "8"
+unicode-xid = "0.2.2"
