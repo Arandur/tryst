@@ -11,6 +11,7 @@ name = "tryst"
 path = "src/cli.rs"
 
 [dependencies]
+lazy_static = "1.4"
 num = "0.4"
 regex = "1"
 rustyline = "8"
