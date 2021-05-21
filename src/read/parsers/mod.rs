@@ -1,24 +1,23 @@
 mod combinators;
 pub mod types;
 
-use crate::types as base_types;
+use crate::types as core_types;
 use crate::types::lir::{Span, WithSpan};
 
-use super::types as read_types;
-use super::types::Source;
+use super::types::{Source, Error, ErrorKind, Result};
 use types::*;
 
-pub type Atom = WithSpan<base_types::Atom>;
+pub type Atom = WithSpan<core_types::Atom>;
 
 fn parse_atom<'a>(source: &Source<'a>) -> Result<'a, Atom> {
     if source.inner.starts_with(char::is_numeric) {
-        parse_number.map(base_types::Atom::Number).with_span().parse(source)
+        parse_number.map(core_types::Atom::Number).with_span().parse(source)
     } else {
-        parse_symbol.map(base_types::Atom::Symbol).with_span().parse(source)
+        parse_symbol.map(core_types::Atom::Symbol).with_span().parse(source)
     }
 }
 
-fn parse_number<'a>(source: &Source<'a>) -> Result<'a, base_types::Number> {
+fn parse_number<'a>(source: &Source<'a>) -> Result<'a, core_types::Number> {
     let Source { inner, position } = source;
 
     let end = inner.find(|c: char| c.is_whitespace() || c == ')').unwrap_or_else(|| inner.len());
@@ -33,7 +32,7 @@ fn parse_number<'a>(source: &Source<'a>) -> Result<'a, base_types::Number> {
         })
 }
 
-fn parse_symbol<'a>(source: &Source<'a>) -> Result<'a, base_types::Symbol> {
+fn parse_symbol<'a>(source: &Source<'a>) -> Result<'a, core_types::Symbol> {
     let Source { inner, position } = source;
 
     // Easier to enumerate the characters a symbol can't start with!

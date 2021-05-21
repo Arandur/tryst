@@ -1,14 +1,10 @@
 mod literal;
 
 use crate::types::lir::{Span, WithSpan};
-
-use super::types;
-use super::read_types;
+use crate::read::types::{Source, Result};
+use super::types::{Parser, Either};
 
 pub use self::literal::*;
-
-use super::types::*;
-use super::read_types::*;
 
 #[derive(Debug)]
 pub struct Map<P, F> {

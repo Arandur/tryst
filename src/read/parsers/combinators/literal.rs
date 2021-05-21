@@ -1,5 +1,5 @@
-use super::types::*;
-use super::read_types::Source;
+use crate::read::parsers::types::Parser;
+use crate::read::types::{Source, Error, ErrorKind, Result};
 
 pub struct LiteralParser {
     value: &'static str

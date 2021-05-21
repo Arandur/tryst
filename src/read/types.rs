@@ -26,3 +26,16 @@ impl <'a> Source<'a> {
         }
     }
 }
+
+#[derive(Debug, PartialEq)]
+pub struct Error {
+    pub kind: ErrorKind,
+    pub position: Position
+}
+
+#[derive(Debug, PartialEq)]
+pub enum ErrorKind {
+    Expected(&'static str),
+}
+
+pub type Result<'a, T> = core::result::Result<(T, Source<'a>), Error>;

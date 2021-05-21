@@ -1,20 +1,5 @@
-use crate::types::lir::{Position};
-use super::read_types::*;
+use crate::read::types::{Source, Result};
 use super::combinators;
-
-pub type Result<'a, T> = core::result::Result<(T, Source<'a>), Error>;
-
-#[derive(Debug, PartialEq)]
-pub struct Error {
-    pub kind: ErrorKind,
-    pub position: Position
-}
-
-#[derive(Debug, PartialEq)]
-pub enum ErrorKind {
-    Expected(&'static str),
-    Eof
-}
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub enum Either<L, R> {
