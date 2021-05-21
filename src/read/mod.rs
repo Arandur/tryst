@@ -1,4 +1,3 @@
-mod ast;
 mod types;
 mod parsers;
 
