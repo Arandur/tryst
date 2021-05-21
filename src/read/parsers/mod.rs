@@ -4,8 +4,11 @@ pub mod types;
 use crate::types as core_types;
 use crate::types::lir::{Span, WithSpan};
 
-use super::types::{Source, Error, ErrorKind, Result};
+use super::types::{Source, Result};
 use types::*;
+
+use crate::types::number::read as parse_number;
+use crate::types::symbol::read as parse_symbol;
 
 pub type Atom = WithSpan<core_types::Atom>;
 
@@ -15,47 +18,6 @@ fn parse_atom<'a>(source: &Source<'a>) -> Result<'a, Atom> {
     } else {
         parse_symbol.map(core_types::Atom::Symbol).with_span().parse(source)
     }
-}
-
-fn parse_number<'a>(source: &Source<'a>) -> Result<'a, core_types::Number> {
-    let Source { inner, position } = source;
-
-    let end = inner.find(|c: char| c.is_whitespace() || c == ')').unwrap_or_else(|| inner.len());
-    let ( number, next ) = inner.split_at(end);
-    let next = Source { inner: next, position: position.advance(number) };
-
-    number.parse()
-        .map(|n| (n, next))
-        .map_err(|_| Error {
-            kind: ErrorKind::Expected("a number"),
-            position: *position
-        })
-}
-
-fn parse_symbol<'a>(source: &Source<'a>) -> Result<'a, core_types::Symbol> {
-    let Source { inner, position } = source;
-
-    // Easier to enumerate the characters a symbol can't start with!
-    if inner.starts_with('(') {
-        return Err(Error {
-            kind: ErrorKind::Expected("a symbol"),
-            position: *position
-        });
-    }
-
-    let end = inner.find(|c: char| c.is_whitespace() || c == ')').unwrap_or_else(|| inner.len());
-
-    if end == 0 {
-        return Err(Error {
-            kind: ErrorKind::Expected("a symbol"),
-            position: *position
-        })
-    }
-
-    let ( symbol, next ) = inner.split_at(end);
-    let next = Source { inner: next, position: position.advance(symbol) };
-
-    Ok((symbol.to_string(), next))
 }
 
 pub type List = WithSpan<Vec<Form>>;

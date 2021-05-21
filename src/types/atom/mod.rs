@@ -7,11 +7,11 @@
 /*
  * Each type of atom gets its own module.
  */
-mod number;
-mod symbol;
+pub mod number;
+pub mod symbol;
 
-pub use number::*;
-pub use symbol::*;
+pub use number::Number;
+pub use symbol::Symbol;
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum Atom {

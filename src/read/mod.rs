@@ -1,4 +1,4 @@
-mod types;
+pub mod types;
 mod parsers;
 
 pub type Error = types::Error;
