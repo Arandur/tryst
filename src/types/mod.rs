@@ -1,3 +1,5 @@
+pub mod lir;
+
 //mod number;
 mod cons;
 mod symbol;

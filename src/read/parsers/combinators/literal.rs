@@ -1,5 +1,5 @@
 use super::types::*;
-use super::read_types::*;
+use super::read_types::Source;
 
 pub struct LiteralParser {
     value: &'static str
@@ -33,6 +33,7 @@ impl <'a> Parser<'a> for LiteralParser {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::types::lir::Position;
 
     #[test]
     fn test_literal_parser() {

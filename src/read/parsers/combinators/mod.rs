@@ -1,5 +1,7 @@
 mod literal;
 
+use crate::types::lir::{Span, WithSpan};
+
 use super::types;
 use super::read_types;
 

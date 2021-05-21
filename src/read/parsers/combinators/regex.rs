@@ -1,5 +1,7 @@
 use super::types::*;
-use super::read_types::*;
+use super::read_types::Source;
+
+use crate::types::lir::Position;
 
 use regex::Regex;
 

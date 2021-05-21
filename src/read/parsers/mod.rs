@@ -1,6 +1,8 @@
 mod combinators;
 pub mod types;
 
+use crate::types::lir::{Span, WithSpan};
+
 use super::types as read_types;
 use super::types::*;
 use types::*;

@@ -1,3 +1,4 @@
+use crate::types::lir::{Position};
 use super::read_types::*;
 use super::combinators;
 
@@ -13,12 +14,6 @@ pub struct Error {
 pub enum ErrorKind {
     Expected(&'static str),
     Eof
-}
-
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
-pub struct WithSpan<T> {
-    pub value: T,
-    pub span: Span
 }
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
